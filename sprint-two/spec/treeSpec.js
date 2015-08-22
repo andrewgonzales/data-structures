@@ -2,7 +2,7 @@ describe('tree', function() {
   var tree;
 
   beforeEach(function() {
-    tree = Tree();
+    tree = Tree(8);
   });
 
   it('should have methods named "addChild" and "contains", and a property named "value"', function() {
@@ -16,6 +16,11 @@ describe('tree', function() {
     expect(tree.children[0].value).to.equal(5);
   });
 
+  it('should have a parent property for each child', function(){
+    tree.addChild(5);
+    expect(tree.children[0].parent.value).to.equal(8);
+  });
+  
   it('should return true for a value that the tree contains', function(){
     tree.addChild(5);
     expect(tree.contains(5)).to.equal(true);
@@ -26,10 +31,13 @@ describe('tree', function() {
     expect(tree.contains(6)).to.equal(false);
   });
 
-  it('should be able to add children to a tree\'s child', function() {
+  it('should be able to add children to a tree\'s child and have the correct parent', function() {
     tree.addChild(5);
     tree.children[0].addChild(6);
-    expect(tree.children[0].children[0].value).to.equal(6);
+    tree.children[0].children[0].removeFromParent();
+    //expect(tree.children[0].children[0].parent.value).to.equal(5);
+    //expect(tree.children[0].children[0].value).to.equal(6);
+    expect(tree.children[0].children[0]).to.equal(undefined);
   });
 
   it('should correctly detect nested children', function(){

@@ -57,6 +57,13 @@ BinarySearchTreeMethods.contains = function(value){
 };
 
 BinarySearchTreeMethods.depthFirstLog = function(cb){
+  cb(this.value);
+
+    if(this.left !== null) {
+      this.left.depthFirstLog(cb);
+    } else if(this.right !== null){
+      this.right.depthFirstLog(cb);
+    } 
 
 };
 
